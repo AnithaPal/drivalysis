@@ -25,4 +25,5 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 end
 
-   gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'devise'
