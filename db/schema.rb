@@ -11,11 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-
-
-
 ActiveRecord::Schema.define(version: 20160308160831) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "email",              default: "", null: false
+    t.string   "encrypted_password", default: "", null: false
+    t.integer  "sign_in_count",      default: 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.integer  "failed_attempts",    default: 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "drivers", force: :cascade do |t|
     t.string   "name"
@@ -59,9 +70,6 @@ ActiveRecord::Schema.define(version: 20160308160831) do
     t.time     "available_time_sauterday", default: '2000-01-01 00:00:00'
     t.time     "available_time_sunday",    default: '2000-01-01 00:00:00'
   end
-
-end
-ActiveRecord::Schema.define(version: 20160305194221) do
 
   create_table "facilities", force: :cascade do |t|
     t.string   "name"
