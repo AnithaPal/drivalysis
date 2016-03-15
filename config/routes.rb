@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :drivers
   resources :facilities
   root to: 'static_pages#home'
