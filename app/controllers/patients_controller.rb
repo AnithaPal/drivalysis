@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
-before_filter :authenticate_patient!
+  before_action :authenticate_user!, :except => [:new, :create]
+
   def index
     @patients = Patient.all
   end
@@ -58,7 +59,7 @@ before_filter :authenticate_patient!
   private
 
   def patient_params
-    params.require(:patient).permit(:name, :email, :phone_no, :home_address, :facility_address, :pickup_time, days_of_week:[])
+    params.require(:patient).permit(:name, :phone_no, :home_address, :facility_address, :pickup_time, days_of_week:[], user_attributes: [ :id, :email, :password ])
   end
 
 end

@@ -4,14 +4,7 @@ class Patient < ActiveRecord::Base
   validates :home_address, :length => { :maximum => 2000 }
   validates :facility_address, :length => { :maximum => 2000 }
 
-
-      # Include default devise modules. Others available
-    # are:
-    # :token_authenticatable, :encryptable,
-    # :confirmable, :lockable, :timeoutable and
-    # :omniauthable
-    devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable,
-    :validatable
+  has_one :user, as: :meta, dependent: :destroy
+  accepts_nested_attributes_for :user
 
 end
