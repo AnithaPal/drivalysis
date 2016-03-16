@@ -9,13 +9,21 @@
       </ul>
   <% end %>
   <%= form_group_tag(@patient.errors[:name]) do %>
+
+    <%= f.fields_for :user_attributes do |u| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= u.text_field :email, class: 'form-control', placeholder: "Enter your email" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= u.password_field :password, class: 'form-control', placeholder: "Enter your password"   %>
+      </div>
+    <% end %>
     <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control', placeholder: "Enter your name" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :email%>
-      <%= f.text_field :email, class: 'form-control', placeholder: "Enter your email" %>
     </div>
 
     <div class="form-group">

@@ -7,6 +7,8 @@ class PatientsController < ApplicationController
 
   def show
     @patient = Patient.find(params[:id])
+    @user = current_user
+    @user_id = @user[:email]
   end
 
 
@@ -26,33 +28,32 @@ class PatientsController < ApplicationController
     end
   end
 
+  def edit
+    @patient = Patient.find(params[:id])
+  end
 
-  # def edit
-  #   @patient = Patient.find(params[:id])
-  # end
+  def update
+    @patient = Patient.find(params[:id])
 
-  # def update
-  #   @patient = Patient.find(params[:id])
+    if @patient.update_attributes(patient_params)
+      flash[:notice] = "Patient information was updated successfully"
+      redirect_to patient_path
+    else
+      flash[:error] = "Sorry, There was some an error when updating a patient information. Please try again."
+      render :edit
+    end
 
-  #   if @patient.update_attributes(patient_params)
-  #     flash[:notice] = "Patient information was updated successfully"
-  #     redirect_to patient_path
-  #   else
-  #     flash[:error] = "Sorry, There was some an error when updating a patient information. Please try again."
-  #     render :edit
-  #   end
-
-  # end
+  end
 
   def destroy
     @patient = Patient.find(params[:id])
 
     if @patient.destroy
       flash[:notice] = "Patient was successfully removed."
-      # redirect_to home_path
+       redirect_to patients_path
     else
       flash[:error] = "There was an error removing the patient. Please try again."
-        render :show
+      render :show
     end
   end
 
