@@ -1,16 +1,21 @@
 Rails.application.routes.draw do
-  # devise_for :users, :controllers => { registrations: 'registrations' }
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
+  # devise_for :users
   resources :drivers
   resources :facilities
+  resources :patients
+
+
   root to: 'static_pages#home'
   match '/about', to: 'static_pages#about', via: 'get'
   match '/map', to: 'static_pages#map', via: 'get'
   get 'static_pages/sign_up', to: 'static_pages#sign_up', as: :sign_up
-  
-  resources :patients
 
-  devise_for :patient
+
+
+  # devise_for :patient
+  #
+  # defvise_for :driver
 
 
   # The priority is based upon order of creation: first created -> highest priority.

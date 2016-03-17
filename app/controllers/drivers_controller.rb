@@ -1,6 +1,6 @@
 class DriversController < ApplicationController
-  before_action :set_driver, only: [:show, :edit, :update, :destroy]
-
+  # before_action :set_driver, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, :except => [:new, :create]
   # GET /drivers
   # GET /drivers.json
   def index
@@ -10,6 +10,9 @@ class DriversController < ApplicationController
   # GET /drivers/1
   # GET /drivers/1.json
   def show
+    @driver = Driver.find(params[:id])
+    @user = current_user
+    @user_id = @user[:email]
   end
 
   # GET /drivers/new
@@ -69,9 +72,20 @@ class DriversController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def driver_params
-      params.require(:driver).permit(:name, :email, :phone, :available_monday, :available_tueday, :neighborhood, :address,
-      :available_wednesday, :available_thursday, :available_friday, :available_saturday, :available_sunday,
-      :available_time_monday, :available_time_tuesday, :available_time_wednesday, :available_time_thursday,
-      :available_time_friday, :available_time_sauterday, :available_time_sunday, :wheel_chair_accessible, :willing_to_carpool, :assistance_comfort_level)
+      params.require(:driver).permit(:name, :phone, :available_monday,
+                                     :available_tueday, :neighborhood, :address,
+                                     :available_wednesday, :available_thursday,
+                                     :available_friday, :available_saturday,
+                                     :available_sunday,:available_time_monday,
+                                     :available_time_tuesday,
+                                     :available_time_wednesday,
+                                     :available_time_thursday,
+                                     :available_time_friday,
+                                     :available_time_sauterday,
+                                     :available_time_sunday,
+                                     :wheel_chair_accessible,
+                                     :willing_to_carpool,
+                                     :assistance_comfort_level,
+                                     user_attributes: [ :id, :email, :password ])
     end
 end
